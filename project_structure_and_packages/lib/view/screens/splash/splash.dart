@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  GetxController splashController = Get.find<SplashController>();
+  GetxController splashController = Get.put(SplashController());
   @override
   void initState(){
     // TODO: implement initState
@@ -23,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppConstants.BACKGROUND_COLOR,
       body: Center(child: Image.asset(Images.GIF_LOGO),),
     );
   }

@@ -4,14 +4,14 @@ A flutter project to test different packages. Includes firebase email authentica
 
 ## Incldes the followings
 
-#firebase email authentication
+- firebase email authentication
 Sign-Sugnup pages
 
-#splash screen
+- splash screen
 A random gif 5-sec splash screen takes you to login page or home page if already logged in.
 
-#home screen
+- home screen
 Has a bottombar, having 3 pages: 
-- 1) welcome firebase page with logout feature
-- 2) url launcher to launch web and phone url
-- 3) shared preferences to add string items and view them using shared preferences
+1) welcome firebase page with logout feature
+2) url launcher to launch web and phone url
+3) shared preferences to add string items and view them using shared preferences

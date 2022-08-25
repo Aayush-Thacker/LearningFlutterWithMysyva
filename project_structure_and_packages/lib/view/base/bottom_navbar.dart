@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
 import 'package:project_structure_and_packages/controller/bottom_navbar_controller.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +10,7 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
     BottomNavbarController bottomNavbarController =
@@ -26,9 +25,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
           });
         },
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.web), label: 'Url Launcher'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.note), label: 'Shared Preferences')
+          BottomNavigationBarItem(icon: Icon(Icons.note), label: 'Shared Prefs')
         ],
       ),
     );

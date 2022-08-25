@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ChangeThemeButtonWidget(),
         ],
         title: const Text(AppConstants.APPLICATION_NANE),
+        automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: const BottomNavbar(),
       body: Obx(() =>

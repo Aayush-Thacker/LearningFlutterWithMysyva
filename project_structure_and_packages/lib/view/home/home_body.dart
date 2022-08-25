@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_structure_and_packages/data/models/user_model.dart';
+import 'package:project_structure_and_packages/helper/route_helper.dart';
 import 'package:project_structure_and_packages/util/dimensions.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:project_structure_and_packages/util/styles.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -10,70 +15,63 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  bool _hasCallSupport = false;
-  Future<void>? _launched;
-  String _phone = '911';
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
 
   @override
   void initState() {
     super.initState();
-    // Check for phone call support.
-    canLaunchUrl(Uri(scheme: 'tel', path: '123')).then((bool result) {
-      setState(() {
-        _hasCallSupport = result;
-      });
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      loggedInUser = UserModel.fromMap(value.data());
+      setState(() {});
     });
-  }
-
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw 'Could not launch $url';
-    }
-  }
-
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
   }
 
   @override
   Widget build(BuildContext context) {
-    final Uri toLaunch = Uri(scheme: 'https', host: 'www.flutter.dev');
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: Dimensions.NORMAL_MARGIN,
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(Dimensions.EXTRA_MARGIN),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: Dimensions.EXTRA_LARGE_SIZEDBOX_HEIGHT,
+                child: Image.asset("assets/logo.png", fit: BoxFit.contain),
+              ),
+              const Text(
+                "Welcome",
+                style: Styles.TITLE_FONTSTYLE,
+              ),
+              const SizedBox(
+                height: Dimensions.SMALL_SIZEDBOX_HEIGHT,
+              ),
+              Text("${loggedInUser.fullName}", style: Styles.NORMAL_FONT_STYLE),
+              Text("${loggedInUser.email}", style: Styles.NORMAL_FONT_STYLE),
+              const SizedBox(
+                height: Dimensions.SMALL_SIZEDBOX_HEIGHT,
+              ),
+              ActionChip(
+                  label: const Text("Logout"),
+                  onPressed: () {
+                    logout(context);
+                  }),
+            ],
           ),
-          ElevatedButton(
-            onPressed: _hasCallSupport
-                ? () => setState(() {
-                      _launched = _makePhoneCall(_phone);
-                    })
-                : null,
-            child: _hasCallSupport
-                ? const Text('Call 911')
-                : const Text('Calling not supported'),
-          ),
-          const SizedBox(
-            height: Dimensions.NORMAL_MARGIN,
-          ),
-          ElevatedButton(
-            onPressed: () => setState(() {
-              _launched = _launchInBrowser(toLaunch);
-            }),
-            child: const Text('Open Flutter Site'),
-          ),
-        ],
+        ),
       ),
     );
+  }
+
+  // the logout function
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Get.offAndToNamed(RouteHelper.getLoginRoute());
   }
 }

@@ -1,16 +1,17 @@
 # project_structure_and_packages
 
-A new Flutter project.
+A flutter project to test different packages. Includes firebase email authentication with firebase cloud to store key-value pairs to the database.
 
-## Getting Started
+## Incldes the followings
 
-This project is a starting point for a Flutter application.
+#firebase email authentication
+Sign-Sugnup pages
 
-A few resources to get you started if this is your first Flutter project:
+#splash screen
+A random gif 5-sec splash screen takes you to login page or home page if already logged in.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#home screen
+Has a bottombar, having 3 pages: 
+- 1) welcome firebase page with logout feature
+- 2) url launcher to launch web and phone url
+- 3) shared preferences to add string items and view them using shared preferences

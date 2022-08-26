@@ -163,7 +163,7 @@ class _SignupScreenState extends State<SignupScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.redAccent),
           onPressed: () {
             // passing this to our root
             Get.back();

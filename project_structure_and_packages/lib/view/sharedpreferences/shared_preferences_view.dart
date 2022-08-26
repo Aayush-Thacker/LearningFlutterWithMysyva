@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_structure_and_packages/controller/shared_preferences_controller.dart';

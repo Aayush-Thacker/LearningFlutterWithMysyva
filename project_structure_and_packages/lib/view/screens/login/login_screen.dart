@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -101,44 +102,55 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(Dimensions.EXTRA_PADDING_2),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                      height: Dimensions.EXTRA_LARGE_SIZEDBOX_HEIGHT,
-                      child: Image.asset(
-                        Images.LOGO,
-                        fit: BoxFit.contain,
-                      )),
-                  const SizedBox(height: Dimensions.LARGE_SIZEDBOX_HEIGHT),
-                  emailField,
-                  const SizedBox(height: Dimensions.MEDIUM_SIZEDBOX_HEIGHT),
-                  passwordField,
-                  const SizedBox(height: Dimensions.MEDIUM_SIZEDBOX_HEIGHT),
-                  loginButton,
-                  const SizedBox(height: Dimensions.MEDIUM_SIZEDBOX_HEIGHT),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text("Don't have an account? "),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(RouteHelper.getSignupRoute());
-                          },
-                          child: const Text(
-                            "SignUp",
-                            style: Styles.NORMAL_LARGE_FONT_STYLE,
-                          ),
-                        )
-                      ])
-                ],
+      body: PageTransitionSwitcher(
+        duration: const Duration(milliseconds: 1000),
+        transitionBuilder: (Widget child, Animation<double> primaryAnimation,
+            Animation<double> secondaryAnimation) {
+          return FadeThroughTransition(
+            animation: primaryAnimation,
+            secondaryAnimation: secondaryAnimation,
+            child: child,
+          );
+        },
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(Dimensions.EXTRA_PADDING_2),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                        height: Dimensions.EXTRA_LARGE_SIZEDBOX_HEIGHT,
+                        child: Image.asset(
+                          Images.LOGO,
+                          fit: BoxFit.contain,
+                        )),
+                    const SizedBox(height: Dimensions.LARGE_SIZEDBOX_HEIGHT),
+                    emailField,
+                    const SizedBox(height: Dimensions.MEDIUM_SIZEDBOX_HEIGHT),
+                    passwordField,
+                    const SizedBox(height: Dimensions.MEDIUM_SIZEDBOX_HEIGHT),
+                    loginButton,
+                    const SizedBox(height: Dimensions.MEDIUM_SIZEDBOX_HEIGHT),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Text("Don't have an account? "),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RouteHelper.getSignupRoute());
+                            },
+                            child: const Text(
+                              "SignUp",
+                              style: Styles.NORMAL_LARGE_FONT_STYLE,
+                            ),
+                          )
+                        ])
+                  ],
+                ),
               ),
             ),
           ),

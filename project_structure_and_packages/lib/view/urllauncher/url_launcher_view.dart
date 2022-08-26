@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:project_structure_and_packages/util/dimensions.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,34 +46,46 @@ class _UrlLauncherViewState extends State<UrlLauncherView> {
   @override
   Widget build(BuildContext context) {
     final Uri toLaunch = Uri(scheme: 'https', host: 'www.flutter.dev');
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: Dimensions.NORMAL_MARGIN,
-          ),
-          ElevatedButton(
-            onPressed: _hasCallSupport
-                ? () => setState(() {
-                      _launched = _makePhoneCall(_phone);
-                    })
-                : null,
-            child: _hasCallSupport
-                ? const Text('Call 911')
-                : const Text('Calling not supported'),
-          ),
-          const SizedBox(
-            height: Dimensions.NORMAL_MARGIN,
-          ),
-          ElevatedButton(
-            onPressed: () => setState(() {
-              _launched = _launchInBrowser(toLaunch);
-            }),
-            child: const Text('Open Flutter Site'),
-          ),
-        ],
+    return Scaffold(
+      body: PageTransitionSwitcher(
+        duration: const Duration(milliseconds: 1000),
+        transitionBuilder: (Widget child, Animation<double> primaryAnimation,
+            Animation<double> secondaryAnimation) {
+          return SharedAxisTransition(
+            animation: primaryAnimation,
+            secondaryAnimation: secondaryAnimation,
+            transitionType: SharedAxisTransitionType.vertical,
+            child: child,
+          );
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: Dimensions.NORMAL_MARGIN,
+            ),
+            ElevatedButton(
+              onPressed: _hasCallSupport
+                  ? () => setState(() {
+                        _launched = _makePhoneCall(_phone);
+                      })
+                  : null,
+              child: _hasCallSupport
+                  ? const Text('Call 911')
+                  : const Text('Calling not supported'),
+            ),
+            const SizedBox(
+              height: Dimensions.NORMAL_MARGIN,
+            ),
+            ElevatedButton(
+              onPressed: () => setState(() {
+                _launched = _launchInBrowser(toLaunch);
+              }),
+              child: const Text('Open Flutter Site'),
+            ),
+          ],
+        ),
       ),
     );
   }

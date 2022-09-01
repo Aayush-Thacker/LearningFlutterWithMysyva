@@ -61,13 +61,18 @@ class OnBoardingScreen extends StatelessWidget {
             Positioned(
               left: 20,
               bottom: 20,
-              child: FloatingActionButton(
-                elevation: 0,
-                onPressed: controller.previous,
-                child: Obx(() {
-                  return Text(controller.isFirstPage ? '' : 'Prev');
-                }),
-              ),
+              child: controller.isFirstPage
+                  ? FloatingActionButton(
+                      elevation: 0,
+                      onPressed: controller.previous,
+                      child: Obx(() {
+                        return const Text('Prev');
+                      }),
+                    )
+                  : const SizedBox(
+                      height: 0,
+                      width: 0,
+                    ),
             ),
             Positioned(
               right: 20,

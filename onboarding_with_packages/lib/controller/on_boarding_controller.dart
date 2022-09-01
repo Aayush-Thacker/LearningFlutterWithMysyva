@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onboarding_with_packages/model/on_boarding_model.dart';
+import 'package:onboarding_with_packages/view/home_screen_view.dart';
 
 class OnBoardingController extends GetxController {
   var selectedIndex = 0.obs;
@@ -10,7 +11,7 @@ class OnBoardingController extends GetxController {
 
   next() {
     if (isLastPage) {
-      //TODO goto home page
+      Get.to(const HomeScreenView());
     } else {
       pageController.nextPage(duration: 300.milliseconds, curve: Curves.ease);
     }
